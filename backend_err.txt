@@ -1,0 +1,25 @@
+INFO:     Will watch for changes in these directories: ['D:\\patientintake\\server']
+INFO:     Uvicorn running on https://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [27184] using StatReload
+INFO:     Started server process [14824]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'doctor_schemas.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [14824]
+INFO:     Started server process [21016]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     ('192.168.29.141', 12268) - "WebSocket /video/ws/b728fd7c-81a6-4273-a14e-ba249371ab4d" [accepted]
+INFO:     connection open
+INFO:     connection closed
+WARNING:  StatReload detected changes in 'test_admin_doctors.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [21016]
+INFO:     Started server process [4004]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.

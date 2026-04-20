@@ -1,0 +1,6 @@
+--- Testing Save Schedule ---
+Logging in as saneetta@gmail.com...
+Sending POST /doctors/schedule...
+Status: 500
+Response: Internal Server Error
+[FAILED] Could not save schedule.

@@ -1,0 +1,100 @@
+﻿INFO:     127.0.0.1:16649 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16653 - "GET /tokens/my-token/26 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16654 - "GET /tokens/my-token/28 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16651 - "GET /tokens/my-token/4 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16656 - "GET /tokens/my-token/25 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16652 - "GET /tokens/my-token/14 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16655 - "GET /tokens/my-token/29 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16657 - "GET /tokens/my-token/32 HTTP/1.1" 404 Not Found
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:54:39.890189 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:53:59.890189 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16658 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16659 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16660 - "GET /tokens/my-token/28 HTTP/1.1" 404 Not Found
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:54:41.899399 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:01.899399 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16661 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16663 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16662 - "GET /notifications/my/unread-count HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16664 - "GET /tokens/my-token/26 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16665 - "GET /tokens/my-token/25 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16666 - "GET /tokens/my-token/14 HTTP/1.1" 404 Not Found
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:54:43.893515 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:03.893515 UTC
+[DEBUG] No active session found recently for patient 31
+DEBUG: Found 7 doctors. Executing updated list_doctors route.
+INFO:     127.0.0.1:16668 - "GET /doctors/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16669 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16667 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16670 - "GET /medical-records/ HTTP/1.1" 200 OK
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:54:45.882036 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:05.882036 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16671 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16672 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16674 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:54:47.899136 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:07.899136 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16673 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16677 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:54:49.911161 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:09.911161 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16676 - "GET /notifications/my/unread-count HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16675 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:54:51.907549 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:11.907549 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16679 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16678 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:54:53.977349 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:13.977349 UTC
+[DEBUG] No active session found recently for patient 31
+DEBUG: Found 7 doctors. Executing updated list_doctors route.
+INFO:     127.0.0.1:16681 - "GET /doctors/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16682 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16680 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:54:55.891730 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:15.891730 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16685 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16684 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:54:57.899520 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:17.899520 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16690 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16689 - "GET /notifications/my/unread-count HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16688 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:54:59.891654 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:19.891654 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16692 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16691 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16694 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:55:01.895726 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:21.895726 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16693 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16698 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+DEBUG: Found 7 doctors. Executing updated list_doctors route.
+INFO:     127.0.0.1:16697 - "GET /doctors/ HTTP/1.1" 200 OK
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:55:03.933556 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:23.933556 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16696 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:55:05.882395 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:25.882395 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16700 - "GET /notifications/my/unread-count HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16699 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16701 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+Login attempt for: admin@clinic.com
+INFO:     127.0.0.1:21930 - "POST /token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:21932 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52116 - "GET /admin/policies HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52117 - "GET /admin/appointments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52119 - "GET /admin/doctors HTTP/1.1" 200 OK
+Terminate batch job (Y/N)? 

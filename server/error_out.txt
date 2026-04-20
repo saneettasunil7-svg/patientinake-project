@@ -1,0 +1,4 @@
+(sqlite3.OperationalError) table doctor_profiles has no column named branch_name
+[SQL: INSERT INTO doctor_profiles (user_id, full_name, specialization, bio, is_verified, profile_photo, phone_number, upi_id, bank_name, branch_name, account_number, ifsc_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: (49, 'Test Doc', 'General Practitioner', None, 0, None, '1234', 'upi', 'Bank', 'Branch', '123', 'IFSC')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)

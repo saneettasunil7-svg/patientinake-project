@@ -1,0 +1,10 @@
+Sending payload: {
+  "email": "debug_patient_1@example.com",
+  "password": "securepassword",
+  "role": "patient",
+  "full_name": "Debug Patient",
+  "date_of_birth": "1990-01-01",
+  "gender": "Male",
+  "blood_group": "O+"
+}
+Request failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))

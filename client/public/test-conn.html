@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backend Connectivity Test</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+        .box { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>Backend Connectivity Test</h1>
+    
+    <div class="box">
+        <h3>Test 1: Direct Fetch to API Root</h3>
+        <button onclick="testRoot()">Test Connection</button>
+        <div id="root-result"></div>
+    </div>
+
+    <div class="box">
+        <h3>Test 2: Fetch Doctor List</h3>
+        <button onclick="testDoctors()">Test Doctors Endpoint</button>
+        <div id="docs-result"></div>
+    </div>
+
+    <script>
+        const IP = window.location.hostname; // Should act same as Next.js logic
+        // But let's force the IP we know
+        const API_URL = `https://192.168.29.141:8000`; 
+
+        document.write(`<p>Testing against: <strong>${API_URL}</strong></p>`);
+
+        async function testRoot() {
+            const el = document.getElementById('root-result');
+            el.innerHTML = "Testing...";
+            try {
+                const res = await fetch(`${API_URL}/`);
+                if (res.ok) {
+                    const data = await res.json();
+                    el.innerHTML = `<span class="success">SUCCESS!</span> Connected to backend.<br>Response: ${JSON.stringify(data)}`;
+                } else {
+                    el.innerHTML = `<span class="error">FAILED</span> Status: ${res.status}`;
+                }
+            } catch (e) {
+                el.innerHTML = `<span class="error">ERROR: ${e.message}</span><br>Make sure you have accepted the certificate at <a href="${API_URL}/docs" target="_blank">${API_URL}/docs</a>`;
+            }
+        }
+
+        async function testDoctors() {
+            const el = document.getElementById('docs-result');
+            el.innerHTML = "Testing...";
+            try {
+                // Token likely needed but let's see if we get 401 (which is still a success for connectivity)
+                const res = await fetch(`${API_URL}/doctors/`);
+                if (res.ok) {
+                    el.innerHTML = `<span class="success">SUCCESS!</span> Got doctors list.`;
+                } else if (res.status === 401) {
+                    el.innerHTML = `<span class="success">CONNECTED (401 Unauthorized)</span> Backend is reachable! Auth token just missing here.`;
+                } else {
+                     el.innerHTML = `<span class="error">FAILED</span> Status: ${res.status}`;
+                }
+            } catch (e) {
+                 el.innerHTML = `<span class="error">ERROR: ${e.message}</span>`;
+            }
+        }
+    </script>
+</body>
+</html>

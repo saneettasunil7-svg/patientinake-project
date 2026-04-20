@@ -1,0 +1,13 @@
+C:\Users\hp\AppData\Roaming\Python\Python38\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+Sending payload: {
+  "email": "debug_patient_1@example.com",
+  "password": "securepassword",
+  "role": "patient",
+  "full_name": "Debug Patient",
+  "date_of_birth": "1990-01-01",
+  "gender": "Male",
+  "blood_group": "O+"
+}
+Status Code: 500
+Response Text: Internal Server Error

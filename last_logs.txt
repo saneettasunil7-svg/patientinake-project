@@ -1,0 +1,20 @@
+﻿INFO:     127.0.0.1:16698 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+DEBUG: Found 7 doctors. Executing updated list_doctors route.
+INFO:     127.0.0.1:16697 - "GET /doctors/ HTTP/1.1" 200 OK
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:55:03.933556 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:23.933556 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16696 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+[DEBUG] Incoming call check for user 31 at 2026-02-26 11:55:05.882395 UTC
+[DEBUG] Time limit for session: 2026-02-26 11:54:25.882395 UTC
+[DEBUG] No active session found recently for patient 31
+INFO:     127.0.0.1:16700 - "GET /notifications/my/unread-count HTTP/1.1" 200 OK
+INFO:     127.0.0.1:16699 - "GET /video/incoming-call HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:16701 - "GET /tokens/my-active/token HTTP/1.1" 200 OK
+Login attempt for: admin@clinic.com
+INFO:     127.0.0.1:21930 - "POST /token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:21932 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52116 - "GET /admin/policies HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52117 - "GET /admin/appointments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52119 - "GET /admin/doctors HTTP/1.1" 200 OK
+Terminate batch job (Y/N)? 

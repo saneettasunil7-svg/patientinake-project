@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="23.1.5">
+  <diagram id="UseCaseDiagram" name="Use Case Diagram">
+    <mxGraphModel dx="1000" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="admin" value="Admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="doctor" value="Doctor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="440" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="patient" value="Patient" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="760" y="340" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="boundary" value="Patient Intake Web Application" style="shape=rect;html=1;verticalAlign=top;fontStyle=1;whiteSpace=wrap;fillColor=none;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="160" y="40" width="520" height="760" as="geometry" />
+        </mxCell>
+        <mxCell id="UC1" value="login" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="80" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UC2" value="registration" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="140" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UC3" value="manage department" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="200" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UC4" value="manage doctor" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="260" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UC5" value="view booking details" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="320" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UC6" value="View patient details" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="380" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UC7" value="view payment details" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="440" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UC8" value="search treatments" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="500" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UC9" value="booking appointment" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="560" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UC10" value="payment" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="620" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UC11" value="Cancel" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="680" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UC12" value="view feedback" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="740" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UC13" value="report" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="800" width="120" height="40" as="geometry" />
+        </mxCell>
+        <!-- Edges -->
+        <mxCell id="e1" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="admin" target="UC1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="admin" target="UC2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="admin" target="UC3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="admin" target="UC4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="admin" target="UC5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="admin" target="UC6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="admin" target="UC7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="admin" target="UC12"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="admin" target="UC13"><mxGeometry relative="1" as="geometry"/></mxCell>
+        
+        <mxCell id="e10" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="doctor" target="UC1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="doctor" target="UC5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="doctor" target="UC6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e13" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="doctor" target="UC7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e14" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="doctor" target="UC8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e15" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="doctor" target="UC12"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e16" style="endArrow=none;html=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="doctor" target="UC13"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e17" style="endArrow=none;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="UC1" target="patient"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e18" style="endArrow=none;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="UC2" target="patient"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e19" style="endArrow=none;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="UC5" target="patient"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e20" style="endArrow=none;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="UC6" target="patient"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e21" style="endArrow=none;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="UC7" target="patient"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e22" style="endArrow=none;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="UC8" target="patient"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e23" style="endArrow=none;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="UC9" target="patient"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e24" style="endArrow=none;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="UC11" target="patient"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e25" value="&lt;&lt;include&gt;&gt;" style="endArrow=open;dashed=1;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="UC9" target="UC10"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

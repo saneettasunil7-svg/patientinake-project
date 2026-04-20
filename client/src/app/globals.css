@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+:root {
+  /* Medical Theme - Light Mode Default */
+  --background: #f8fafc;
+  /* Slate 50 */
+  --foreground: #334155;
+  /* Slate 700 */
+
+  --primary: #0284c7;
+  /* Sky 600 */
+  --primary-foreground: #ffffff;
+
+  --secondary: #0d9488;
+  /* Teal 600 */
+  --secondary-foreground: #ffffff;
+
+  --accent: #e0f2fe;
+  /* Sky 100 */
+  --accent-foreground: #0c4a6e;
+  /* Sky 900 */
+
+  --card: #ffffff;
+  --card-foreground: #334155;
+
+  --border: #e2e8f0;
+  /* Slate 200 */
+
+  /* Status Colors */
+  --success: #10b981;
+  /* Emerald 500 */
+  --warning: #f59e0b;
+  /* Amber 500 */
+  --error: #ef4444;
+  /* Red 500 */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Glassmorphism - Clean Medical Style */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  /* Slate 200 */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--primary);
+  box-shadow: 0 10px 15px -3px rgba(2, 132, 199, 0.1), 0 4px 6px -2px rgba(2, 132, 199, 0.05);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.2);
+}
+
+.btn-primary:hover {
+  background: #0369a1;
+  /* Sky 700 */
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px -1px rgba(2, 132, 199, 0.3);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Next token highlight animation */
+@keyframes pulse-border {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5), 0 0 20px 4px rgba(52, 211, 153, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(52, 211, 153, 0), 0 0 30px 8px rgba(52, 211, 153, 0.3);
+  }
+}
+
+.animate-pulse-border {
+  animation: pulse-border 1.5s ease-in-out infinite;
+}
+
+@keyframes bounce-x {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+.animate-bounce-x {
+  animation: bounce-x 0.8s ease-in-out infinite;
+}

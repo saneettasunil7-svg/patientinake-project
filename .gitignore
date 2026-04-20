@@ -1,0 +1,63 @@
+# ========================
+# Python Virtual Environments
+# ========================
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Database files
+*.db
+*.sqlite3
+
+# Log files
+*.log
+
+# ========================
+# Sensitive Server Files
+# ========================
+server/token.txt
+server/p_token.txt
+server/crash.log
+server/error.txt
+server/out.json
+server/cert.pem
+server/key.pem
+server/.env
+server/backend_startup*.txt
+server/uvicorn_out*.txt
+server/uvicorn_tail.txt
+server/server_debug_log.txt
+server/typing_dep.txt
+server/uploads/
+
+# ========================
+# Node / Next.js Frontend
+# ========================
+node_modules/
+.next/
+client/frontend_log.txt
+client/temp_frontend_log.txt
+client/tsc_error*.txt
+client/tsc_plain.txt
+client/tsconfig.tsbuildinfo
+client/certificates/
+
+# ========================
+# General
+# ========================
+.DS_Store
+Thumbs.db
+*.bak
+*.swp
+*.orig
+.gemini/
+/tmp/
+
+# Nested duplicate project folder
+patientintake/

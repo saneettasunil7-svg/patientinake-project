@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="23.1.5">
+  <diagram id="SequenceDiagram" name="Sequence Diagram">
+    <mxGraphModel dx="1000" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Participants -->
+        <mxCell id="p1" value="Patient" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="100" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" value="Frontend" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="240" y="40" width="100" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" value="Backend" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="440" y="40" width="100" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" value="Database" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="640" y="40" width="100" height="600" as="geometry" />
+        </mxCell>
+
+        <!-- Login Sequence -->
+        <mxCell id="m1" value="Enter Credentials" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;" edge="1" parent="1" source="p1" target="p2">
+          <mxGeometry x="1" y="80" relative="1" as="geometry">
+            <mxPoint x="90" y="120" as="sourcePoint" />
+            <mxPoint x="290" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" value="POST /login" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;" edge="1" parent="1" source="p2" target="p3">
+          <mxGeometry x="1" y="100" relative="1" as="geometry">
+            <mxPoint x="290" y="140" as="sourcePoint" />
+            <mxPoint x="490" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" value="Fetch User" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;" edge="1" parent="1" source="p3" target="p4">
+          <mxGeometry x="1" y="120" relative="1" as="geometry">
+            <mxPoint x="490" y="160" as="sourcePoint" />
+            <mxPoint x="690" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" value="User Data" style="verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;exitX=0;exitY=0;" edge="1" parent="1" source="p4" target="p3">
+          <mxGeometry x="1" y="140" relative="1" as="geometry">
+            <mxPoint x="690" y="180" as="sourcePoint" />
+            <mxPoint x="490" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m5" value="JWT Token" style="verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;exitX=0;exitY=0;" edge="1" parent="1" source="p3" target="p2">
+          <mxGeometry x="1" y="160" relative="1" as="geometry">
+            <mxPoint x="490" y="200" as="sourcePoint" />
+            <mxPoint x="290" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m6" value="Redirect to Dashboard" style="verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;exitX=0;exitY=0;" edge="1" parent="1" source="p2" target="p1">
+          <mxGeometry x="1" y="180" relative="1" as="geometry">
+            <mxPoint x="290" y="220" as="sourcePoint" />
+            <mxPoint x="90" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Emergency Sequence -->
+        <mxCell id="m7" value="Emergency Click" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;" edge="1" parent="1" source="p1" target="p2">
+          <mxGeometry x="1" y="240" relative="1" as="geometry">
+            <mxPoint x="90" y="280" as="sourcePoint" />
+            <mxPoint x="290" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" value="Get Geolocation" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;" edge="1" parent="1" source="p2" target="p3">
+          <mxGeometry x="1" y="260" relative="1" as="geometry">
+            <mxPoint x="290" y="300" as="sourcePoint" />
+            <mxPoint x="490" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m9" value="Find Nearest Ambulance" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;" edge="1" parent="1" source="p3" target="p4">
+          <mxGeometry x="1" y="280" relative="1" as="geometry">
+            <mxPoint x="490" y="320" as="sourcePoint" />
+            <mxPoint x="690" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m10" value="Agency Details" style="verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;exitX=0;exitY=0;" edge="1" parent="1" source="p4" target="p3">
+          <mxGeometry x="1" y="300" relative="1" as="geometry">
+            <mxPoint x="690" y="340" as="sourcePoint" />
+            <mxPoint x="490" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m11" value="Show Call Link" style="verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;exitX=0;exitY=0;" edge="1" parent="1" source="p3" target="p2">
+          <mxGeometry x="1" y="320" relative="1" as="geometry">
+            <mxPoint x="490" y="360" as="sourcePoint" />
+            <mxPoint x="290" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

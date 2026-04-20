@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActivityDiagrams project="Patient Intake Web Application">
+    <!-- 1. Patient User Flow -->
+    <Flow name="Patient User Flow">
+        <Node id="Start" type="start" />
+        <Decision id="IsNew" name="New User?">
+            <Edge target="Register" label="Yes" />
+            <Edge target="Login" label="No" />
+        </Decision>
+        <Node id="Register" name="Register Account" />
+        <Node id="Login" name="Login" />
+        <Decision id="Dashboard" name="Patient Dashboard">
+            <Option name="Book Appointment" target="BookAppt" />
+            <Option name="View Appointments" target="ViewAppts" />
+            <Option name="View Prescriptions" target="ViewPresc" />
+            <Option name="Request Emergency" target="RequestEmerg" />
+        </Decision>
+        <Node id="BookAppt" name="Book Appointment" />
+        <Node id="SearchDoc" name="Search Doctor" />
+        <Node id="SelectSlot" name="Select Time Slot" />
+        <Node id="Payment" name="Make Payment" />
+        <Node id="RequestEmerg" name="Request Emergency" />
+        <Node id="GetLoc" name="Get Geolocation" />
+        <Node id="FindAmb" name="Find Nearest Ambulance" />
+        <Node id="CallAmb" name="Call Ambulance Agency" />
+        <Node id="Logout" type="end" name="Logout" />
+
+        <Transitions>
+            <Path from="Start" to="IsNew" />
+            <Path from="Register" to="Login" />
+            <Path from="Login" to="Dashboard" />
+            <Path from="BookAppt" to="SearchDoc" />
+            <Path from="SearchDoc" to="SelectSlot" />
+            <Path from="SelectSlot" to="Payment" />
+            <Path from="Payment" to="Dashboard" />
+            <Path from="RequestEmerg" to="GetLoc" />
+            <Path from="GetLoc" to="FindAmb" />
+            <Path from="FindAmb" to="CallAmb" />
+            <Path from="CallAmb" to="Dashboard" />
+            <Path from="Dashboard" to="Logout" />
+        </Transitions>
+    </Flow>
+
+    <!-- 2. Doctor User Flow -->
+    <Flow name="Doctor User Flow">
+        <Node id="Start" type="start" />
+        <Decision id="IsNew" name="New Doctor?">
+            <Edge target="Register" label="Yes" />
+            <Edge target="Login" label="No" />
+        </Decision>
+        <Node id="Register" name="Register Profile" />
+        <Node id="WaitAuth" name="Wait for Admin Approval" />
+        <Node id="Login" name="Login" />
+        <Decision id="Dashboard" name="Doctor Dashboard">
+            <Option name="Manage Availability" target="ManageAvail" />
+            <Option name="Manage Payment Details" target="ManagePay" />
+            <Option name="View Upcoming Appts" target="ViewUpcoming" />
+            <Option name="View Past Appts" target="ViewPast" />
+        </Decision>
+        <Node id="ManageAvail" name="Manage Availability" />
+        <Node id="SetHours" name="Set Working Hours" />
+        <Node id="ViewUpcoming" name="View Upcoming Appts" />
+        <Node id="ConductAppt" name="Conduct Appointment" />
+        <Node id="WritePresc" name="Write Prescription" />
+        <Node id="Logout" type="end" name="Logout" />
+
+        <Transitions>
+            <Path from="Start" to="IsNew" />
+            <Path from="Register" to="WaitAuth" />
+            <Path from="WaitAuth" to="Login" />
+            <Path from="Login" to="Dashboard" />
+            <Path from="ManageAvail" to="SetHours" />
+            <Path from="SetHours" to="Dashboard" />
+            <Path from="ViewUpcoming" to="ConductAppt" />
+            <Path from="ConductAppt" to="WritePresc" />
+            <Path from="WritePresc" to="Dashboard" />
+            <Path from="Dashboard" to="Logout" />
+        </Transitions>
+    </Flow>
+
+    <!-- 3. Admin User Flow -->
+    <Flow name="Admin User Flow">
+        <Node id="Start" type="start" />
+        <Node id="Login" name="Admin Login" />
+        <Decision id="Dashboard" name="Admin Dashboard">
+            <Option name="Manage Doctors" target="ManageDocs" />
+            <Option name="Manage Patients" target="ManagePats" />
+            <Option name="Manage Ambulances" target="ManageAmbs" />
+        </Decision>
+        <Node id="ManageDocs" name="Manage Doctors" />
+        <Node id="ViewPending" name="View Pending Approvals" />
+        <Node id="Approve" name="Approve" />
+        <Node id="Reject" name="Reject" />
+        <Node id="ManagePats" name="Manage Patients" />
+        <Node id="ViewRecords" name="View Records" />
+        <Node id="Suspend" name="Suspend User" />
+        <Node id="ManageAmbs" name="Manage Ambulances" />
+        <Node id="AddAgency" name="Add Agency" />
+        <Node id="UpdateAgency" name="Update Agency" />
+        <Node id="DelAgency" name="Delete Agency" />
+        <Node id="Logout" type="end" name="Logout" />
+
+        <Transitions>
+            <Path from="Start" to="Login" />
+            <Path from="Login" to="Dashboard" />
+            <Path from="ManageDocs" to="ViewPending" />
+            <Path from="ViewPending" to="Approve" />
+            <Path from="ViewPending" to="Reject" />
+            <Path from="Approve" to="Dashboard" />
+            <Path from="Reject" to="Dashboard" />
+            <Path from="ManagePats" to="ViewRecords" />
+            <Path from="ManagePats" to="Suspend" />
+            <Path from="ViewRecords" to="Dashboard" />
+            <Path from="Suspend" to="Dashboard" />
+            <Path from="ManageAmbs" to="AddAgency" />
+            <Path from="ManageAmbs" to="UpdateAgency" />
+            <Path from="ManageAmbs" to="DelAgency" />
+            <Path from="AddAgency" to="Dashboard" />
+            <Path from="UpdateAgency" to="Dashboard" />
+            <Path from="DelAgency" to="Dashboard" />
+            <Path from="Dashboard" to="Logout" />
+        </Transitions>
+    </Flow>
+
+    <!-- 4. Emergency & Ambulance Module Flow -->
+    <Flow name="Emergency &amp; Ambulance Module Flow">
+        <Node id="Trigger" type="start" name="Emergency Button Clicked" />
+        <Node id="Sound" name="Play Siren Audio" />
+        <Decision id="ReqLoc" name="Request Geolocation">
+            <Edge target="RealLoc" label="Allowed" />
+            <Edge target="DefLoc" label="Denied" />
+        </Decision>
+        <Node id="RealLoc" name="Use Exact Coordinates" />
+        <Node id="DefLoc" name="Use Default/City Location" />
+        <Node id="Search" name="Search Database for Nearest Agency" />
+        <Decision id="Found" name="Ambulance Found?">
+            <Edge target="ShowDetails" label="Yes" />
+            <Edge target="ShowNatl" label="No" />
+        </Decision>
+        <Node id="ShowDetails" name="Display Agency Details" />
+        <Node id="CallLink" name="Show 'tel:' Call Link" />
+        <Node id="ShowNatl" name="Display National Emerg. Numbers" />
+        <Node id="CallNatl" name="Show 'tel:112' Call Link" />
+        <Node id="End" type="end" />
+
+        <Transitions>
+            <Path from="Trigger" to="Sound" />
+            <Path from="Sound" to="ReqLoc" />
+            <Path from="RealLoc" to="Search" />
+            <Path from="DefLoc" to="Search" />
+            <Path from="Search" to="Found" />
+            <Path from="ShowDetails" to="CallLink" />
+            <Path from="ShowNatl" to="CallNatl" />
+            <Path from="CallLink" to="End" />
+            <Path from="CallNatl" to="End" />
+        </Transitions>
+    </Flow>
+</ActivityDiagrams>

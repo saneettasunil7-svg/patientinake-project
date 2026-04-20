@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UseCaseDiagram project="Patient Intake Web Application">
+    <!-- Actors Definition -->
+    <Actors>
+        <Actor id="admin" name="Admin" description="System Administrator" />
+        <Actor id="doctor" name="Doctor" description="Healthcare Provider" />
+        <Actor id="patient" name="Patient" description="Service Recipient" />
+    </Actors>
+
+    <!-- Use Cases Definition -->
+    <UseCases>
+        <UseCase id="login" name="login" />
+        <UseCase id="registration" name="registration" />
+        <UseCase id="manage_department" name="manage department" />
+        <UseCase id="manage_doctor" name="manage doctor" />
+        <UseCase id="view_booking_details" name="view booking details" />
+        <UseCase id="view_patient_details" name="View patient details" />
+        <UseCase id="view_payment_details" name="view payment details" />
+        <UseCase id="search_treatments" name="search treatments" />
+        <UseCase id="booking_appointment" name="booking appointment">
+            <Relationship type="include" target="payment" />
+        </UseCase>
+        <UseCase id="payment" name="payment" />
+        <UseCase id="cancel" name="Cancel" />
+        <UseCase id="view_feedback" name="view feedback" />
+        <UseCase id="report" name="report" />
+    </UseCases>
+
+    <!-- Associations between Actors and Use Cases -->
+    <Associations>
+        <!-- Admin Associations -->
+        <Association actorId="admin" useCaseId="login" />
+        <Association actorId="admin" useCaseId="registration" />
+        <Association actorId="admin" useCaseId="manage_department" />
+        <Association actorId="admin" useCaseId="manage_doctor" />
+        <Association actorId="admin" useCaseId="view_booking_details" />
+        <Association actorId="admin" useCaseId="view_patient_details" />
+        <Association actorId="admin" useCaseId="view_payment_details" />
+        <Association actorId="admin" useCaseId="view_feedback" />
+        <Association actorId="admin" useCaseId="report" />
+
+        <!-- Doctor Associations -->
+        <Association actorId="doctor" useCaseId="login" />
+        <Association actorId="doctor" useCaseId="view_booking_details" />
+        <Association actorId="doctor" useCaseId="view_patient_details" />
+        <Association actorId="doctor" useCaseId="view_payment_details" />
+        <Association actorId="doctor" useCaseId="search_treatments" />
+        <Association actorId="doctor" useCaseId="view_feedback" />
+        <Association actorId="doctor" useCaseId="report" />
+
+        <!-- Patient Associations -->
+        <Association actorId="patient" useCaseId="login" />
+        <Association actorId="patient" useCaseId="registration" />
+        <Association actorId="patient" useCaseId="view_booking_details" />
+        <Association actorId="patient" useCaseId="view_patient_details" />
+        <Association actorId="patient" useCaseId="view_payment_details" />
+        <Association actorId="patient" useCaseId="search_treatments" />
+        <Association actorId="patient" useCaseId="booking_appointment" />
+        <Association actorId="patient" useCaseId="cancel" />
+    </Associations>
+</UseCaseDiagram>

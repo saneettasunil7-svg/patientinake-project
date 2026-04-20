@@ -12,7 +12,7 @@ import {
 import PublicChatWidget from "@/components/PublicChatWidget";
 import AppointmentModal from "@/components/AppointmentModal";
 
-export default function Home() {
+function HomeContent() {
   const [modalOpen, setModalOpen] = useState(false);
   const searchParams = useSearchParams();
 
@@ -394,6 +394,14 @@ export default function Home() {
       <AppointmentModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <PublicChatWidget />
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <React.Suspense fallback={<div className="min-h-screen bg-slate-50" />}>
+      <HomeContent />
+    </React.Suspense>
   );
 }
 

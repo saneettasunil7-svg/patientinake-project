@@ -56,10 +56,29 @@ export class WebRTCManager {
         this.log(`WebRTCManager initializing for session: ${sessionId}, myId: ${this.myId}`);
 
         // Initialize WebRTC
+        // ICE Servers: STUN (find public IP) + TURN (relay fallback for firewalls/strict NAT)
+        // Free TURN provided by Open Relay Project (openrelay.metered.ca)
         this.peerConnection = new RTCPeerConnection({
             iceServers: [
+                // Google STUN — fast, free, works on most networks
                 { urls: 'stun:stun.l.google.com:19302' },
-                { urls: 'stun:stun1.l.google.com:19302' }
+                { urls: 'stun:stun1.l.google.com:19302' },
+                // Open Relay TURN — relay fallback for strict firewalls / corporate NAT
+                {
+                    urls: 'turn:openrelay.metered.ca:80',
+                    username: 'openrelayproject',
+                    credential: 'openrelayproject'
+                },
+                {
+                    urls: 'turn:openrelay.metered.ca:443',
+                    username: 'openrelayproject',
+                    credential: 'openrelayproject'
+                },
+                {
+                    urls: 'turn:openrelay.metered.ca:443?transport=tcp',
+                    username: 'openrelayproject',
+                    credential: 'openrelayproject'
+                }
             ]
         });
 

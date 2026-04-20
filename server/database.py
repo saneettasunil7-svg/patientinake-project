@@ -4,13 +4,23 @@ from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 import os
 
-# Load .env file so DATABASE_URL is available before engine creation
+# Load .env file for local development
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-# Force SQLite for this environment as Postgres is misconfigured
-SQLALCHEMY_DATABASE_URL = f"sqlite:///{os.path.join(BASE_DIR, 'patientintake.db')}"
-print(f"DEBUG: Using database URL: {SQLALCHEMY_DATABASE_URL}")
+
+# Use DATABASE_URL from environment (set on Render/Supabase),
+# fall back to local SQLite for development
+SQLALCHEMY_DATABASE_URL = os.environ.get(
+    "DATABASE_URL",
+    f"sqlite:///{os.path.join(BASE_DIR, 'patientintake.db')}"
+)
+
+# Supabase/Heroku provide "postgres://" but SQLAlchemy needs "postgresql://"
+if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
+    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+print(f"DEBUG: Using database: {'PostgreSQL' if 'postgresql' in SQLALCHEMY_DATABASE_URL else 'SQLite'}")
 
 # SQLite needs check_same_thread=False; PostgreSQL does not
 connect_args = {"check_same_thread": False} if SQLALCHEMY_DATABASE_URL.startswith("sqlite") else {}
@@ -27,3 +37,4 @@ def get_db():
         yield db
     finally:
         db.close()
+

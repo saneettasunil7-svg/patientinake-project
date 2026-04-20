@@ -5,6 +5,10 @@ from fastapi.security import OAuth2PasswordRequestForm
 from datetime import timedelta
 from typing import List, Dict
 import json
+import os
+import asyncio
+import httpx
+import logging
 
 import models, schemas, auth, appointment_models, feedback_routes
 import appointment_routes, medical_records_routes, doctor_routes, admin_routes, token_routes, video_routes, document_routes, chat_routes, profile_routes, notification_routes, ambulance_routes
@@ -19,18 +23,61 @@ appointment_models.Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Patient Intake API")
 
 # Configure CORS
+# In production, set ALLOWED_ORIGINS env var to comma-separated list of allowed origins.
+# Example: "https://your-app.vercel.app,https://www.your-custom-domain.com"
+# In development, all http/https origins are allowed.
+_raw_origins = os.environ.get("ALLOWED_ORIGINS", "")
+_allowed_origins = [o.strip() for o in _raw_origins.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    # allow_origins=[...], # Commented out static list
-    allow_origin_regex="https?://.*", # Allow all https/http origins for dev
+    allow_origins=_allowed_origins if _allowed_origins else ["*"],
+    allow_origin_regex=None if _allowed_origins else r"https?://.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# ── Keep-Alive Self-Ping (prevents Render free tier cold starts) ──────────────
+
+logger = logging.getLogger("keepalive")
+
+SELF_PING_INTERVAL = 14 * 60  # 14 minutes — Render sleeps after 15 min of inactivity
+
+async def _keep_alive_loop():
+    """Pings our own /health endpoint every 14 minutes to prevent Render spin-down."""
+    # Wait 30 seconds after startup before first ping (let server finish starting)
+    await asyncio.sleep(30)
+    self_url = os.environ.get("RENDER_EXTERNAL_URL", "").rstrip("/")
+    if not self_url:
+        logger.info("[KeepAlive] RENDER_EXTERNAL_URL not set — self-ping disabled (local dev).")
+        return
+    health_url = f"{self_url}/health"
+    logger.info(f"[KeepAlive] Self-ping active. Pinging {health_url} every {SELF_PING_INTERVAL // 60} min.")
+    async with httpx.AsyncClient(timeout=10) as client:
+        while True:
+            try:
+                resp = await client.get(health_url)
+                logger.info(f"[KeepAlive] Pinged {health_url} → {resp.status_code}")
+            except Exception as exc:
+                logger.warning(f"[KeepAlive] Ping failed: {exc}")
+            await asyncio.sleep(SELF_PING_INTERVAL)
+
+@app.on_event("startup")
+async def startup_event():
+    """Start the background keep-alive task when the app boots."""
+    asyncio.create_task(_keep_alive_loop())
+
+# ── Root & Health endpoints ────────────────────────────────────────────────────
+
 @app.get("/")
 def read_root():
     return {"message": "Welcome to Patient Intake API"}
+
+@app.get("/health")
+def health_check():
+    """Lightweight health check endpoint used by the self-ping keep-alive task."""
+    return {"status": "ok"}
 
 app.include_router(doctor_routes.router)
 app.include_router(appointment_routes.router)
@@ -47,7 +94,6 @@ app.include_router(ambulance_routes.router)
 
 
 from fastapi.staticfiles import StaticFiles
-import os
 if not os.path.exists("uploads"):
     os.makedirs("uploads")
 app.mount("/static", StaticFiles(directory="uploads"), name="static")

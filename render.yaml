@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: patientintake-backend
+    env: python
+    region: oregon
+    plan: free
+    # No rootDir — commands use explicit paths from repo root so Render never gets confused
+    buildCommand: pip install -r server/requirements.txt
+    startCommand: cd server && uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false          # Paste your Supabase connection string in the Render dashboard
+      - key: SECRET_KEY
+        generateValue: true  # Render generates a secure random value automatically
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+      - key: SMTP_SERVER
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USERNAME
+        sync: false          # Your Gmail address
+      - key: SMTP_PASSWORD
+        sync: false          # Your Gmail App Password (16 chars)
+      - key: SENDER_EMAIL
+        sync: false          # Same as SMTP_USERNAME usually
+      - key: ALLOWED_ORIGINS
+        sync: false          # Your Vercel frontend URL e.g. https://patientintake.vercel.app
+      # RENDER_EXTERNAL_URL is set automatically by Render — used by the self-ping keep-alive.

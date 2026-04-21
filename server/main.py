@@ -211,16 +211,18 @@ def reset_password(payload: schemas.PasswordResetRequest, db: Session = Depends(
 def get_public_doctors(db: Session = Depends(get_db)):
     """Return all doctors with profiles (no auth needed) for the public booking widget."""
     import appointment_models as am
-    from datetime import datetime as dt
 
     doctors = db.query(models.User).filter(models.User.role == "doctor").all()
+    print(f"DEBUG /public/doctors: found {len(doctors)} doctor users in DB")
     result = []
     for doctor in doctors:
         if not doctor.doctor_profile:
+            print(f"  → SKIP doctor id={doctor.id} email={doctor.email}: no profile")
             continue
-        spec = doctor.doctor_profile.specialization or ""
-        if not spec or spec in ("None", "null", ""):
-            continue
+
+        # Use "General Practice" as fallback — never skip a doctor just for missing specialization
+        raw_spec = doctor.doctor_profile.specialization or ""
+        spec = raw_spec.strip() if raw_spec.strip() not in ("None", "null", "") else "General Practice"
 
         # Check availability
         availability = db.query(am.DoctorAvailability).filter(
@@ -228,13 +230,41 @@ def get_public_doctors(db: Session = Depends(get_db)):
         ).first()
         is_available = availability.is_available if availability else False
 
+        print(f"  → doctor id={doctor.id} name={doctor.doctor_profile.full_name} spec={spec} available={is_available}")
         result.append({
             "id": doctor.id,
             "full_name": doctor.doctor_profile.full_name,
             "specialization": spec,
             "is_available": is_available,
         })
+    print(f"DEBUG /public/doctors: returning {len(result)} doctors")
     return result
+
+
+@app.get("/debug/doctors")
+def debug_doctors(db: Session = Depends(get_db)):
+    """Debug endpoint — shows raw doctor data from DB (no auth required). Remove in production."""
+    import appointment_models as am
+    doctors = db.query(models.User).filter(models.User.role == "doctor").all()
+    result = []
+    for d in doctors:
+        profile = d.doctor_profile
+        avail = db.query(am.DoctorAvailability).filter(am.DoctorAvailability.doctor_id == d.id).first()
+        result.append({
+            "user_id": d.id,
+            "email": d.email,
+            "is_active": d.is_active,
+            "has_profile": profile is not None,
+            "full_name": profile.full_name if profile else None,
+            "specialization": profile.specialization if profile else None,
+            "is_available": avail.is_available if avail else False,
+        })
+    return {
+        "total_doctor_users": len(doctors),
+        "doctors_with_profile": sum(1 for r in result if r["has_profile"]),
+        "doctors": result
+    }
+
 
 
 

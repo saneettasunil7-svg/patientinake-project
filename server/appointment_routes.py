@@ -194,32 +194,33 @@ async def update_appointment(
     appointment = db.query(appointment_models.Appointment).filter(
         appointment_models.Appointment.id == appointment_id
     ).first()
-    
+
     if not appointment:
         raise HTTPException(status_code=404, detail="Appointment not found")
-    
-    # Only doctor or patient can update
+
+    # verify ownership
     if current_user.role == "patient" and appointment.patient_id != current_user.id:
         raise HTTPException(status_code=403, detail="Access denied")
     elif current_user.role == "doctor" and appointment.doctor_id != current_user.id:
         raise HTTPException(status_code=403, detail="Access denied")
-    
-    if appointment_update.status:
-        appointment.status = appointment_update.status
+
+    if appointment_update.appointment_date:
+        appointment.appointment_date = appointment_update.appointment_date
     if appointment_update.notes:
         appointment.notes = appointment_update.notes
-    
+    if appointment_update.status:
+        appointment.status = appointment_update.status
+
     db.commit()
     db.refresh(appointment)
-    
-    # Populate doctor details
+
     doctor_profile = db.query(models.DoctorProfile).filter(
         models.DoctorProfile.user_id == appointment.doctor_id
     ).first()
     doctor_user = db.query(models.User).filter(models.User.id == appointment.doctor_id).first()
-    
+
     appt_data = appointment_schemas.AppointmentResponse.from_orm(appointment)
-    
+
     if doctor_profile:
         appt_data.doctor_name = doctor_profile.full_name
         appt_data.doctor_specialization = doctor_profile.specialization
@@ -229,5 +230,5 @@ async def update_appointment(
     else:
         appt_data.doctor_name = "Inactive Provider"
         appt_data.doctor_specialization = "N/A"
-        
+
     return appt_data

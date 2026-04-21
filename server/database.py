@@ -9,7 +9,7 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.abspath(__file__)),
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Use DATABASE_URL from environment (set on Render/Supabase),
+# Use DATABASE_URL from environment (set on Render dashboard),
 # fall back to local SQLite for development
 SQLALCHEMY_DATABASE_URL = os.environ.get(
     "DATABASE_URL",
@@ -20,12 +20,25 @@ SQLALCHEMY_DATABASE_URL = os.environ.get(
 if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
     SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
-print(f"DEBUG: Using database: {'PostgreSQL' if 'postgresql' in SQLALCHEMY_DATABASE_URL else 'SQLite'}")
+# Supabase requires SSL — append sslmode=require if not already present
+if "postgresql" in SQLALCHEMY_DATABASE_URL and "sslmode" not in SQLALCHEMY_DATABASE_URL:
+    separator = "&" if "?" in SQLALCHEMY_DATABASE_URL else "?"
+    SQLALCHEMY_DATABASE_URL += f"{separator}sslmode=require"
+
+is_postgres = "postgresql" in SQLALCHEMY_DATABASE_URL
+print(f"DEBUG: Using database: {'PostgreSQL (Supabase)' if is_postgres else 'SQLite (local)'}")
 
 # SQLite needs check_same_thread=False; PostgreSQL does not
-connect_args = {"check_same_thread": False} if SQLALCHEMY_DATABASE_URL.startswith("sqlite") else {}
+connect_args = {"check_same_thread": False} if not is_postgres else {}
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args=connect_args)
+# pool_pre_ping=True verifies connections before use — critical for Render/Supabase
+# which may drop idle connections on free tier
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL,
+    connect_args=connect_args,
+    pool_pre_ping=True,
+    pool_recycle=300,  # Recycle connections every 5 minutes
+)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()

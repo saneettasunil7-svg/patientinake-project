@@ -32,11 +32,15 @@ async def list_doctors(
                 if availability.unavailable_dates and today_str in availability.unavailable_dates:
                     global_unavailable = True
             is_available = manual_available and (not global_unavailable)
+            
+            raw_spec = doctor.doctor_profile.specialization or ""
+            spec = raw_spec.strip() if raw_spec.strip() not in ("None", "null", "") else "General Practice"
+
             result.append({
                 "id": doctor.id,
                 "email": doctor.email,
                 "full_name": doctor.doctor_profile.full_name,
-                "specialization": doctor.doctor_profile.specialization,
+                "specialization": spec,
                 "is_available": is_available,
                 "profile_photo": doctor.doctor_profile.profile_photo
             })

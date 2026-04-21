@@ -33,7 +33,10 @@ export default function PatientLayout({
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    if (data.is_emergency) {
+                    // ONLY redirect if this is a fresh, 'waiting' emergency request.
+                    // 'in_progress' and 'completed' are stale tokens from old sessions
+                    // and should NOT cause an automatic redirect.
+                    if (data.is_emergency && data.status === 'waiting') {
                         router.replace('/patient/emergency-call');
                     }
                 }
@@ -43,8 +46,8 @@ export default function PatientLayout({
         };
 
         checkActiveEmergency();
-        // Periodically check (every 30s) to catch newly initiated emergencies while navigating
-        const interval = setInterval(checkActiveEmergency, 2000);
+        // Poll every 10 seconds - often enough for emergencies, light enough not to spam the server
+        const interval = setInterval(checkActiveEmergency, 10000);
         return () => clearInterval(interval);
     }, [pathname, router, user, isLoading]);
 

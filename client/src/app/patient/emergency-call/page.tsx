@@ -18,6 +18,7 @@ export default function EmergencyCallPage() {
 
     // Auto-poll for status
     useEffect(() => {
+        let failCount = 0;
         const checkStatus = async () => {
             const token = localStorage.getItem('token');
             try {
@@ -26,6 +27,7 @@ export default function EmergencyCallPage() {
                 });
 
                 if (res.ok) {
+                    failCount = 0;
                     const data = await res.json();
                     if (!data.is_emergency) {
                         router.push('/patient/dashboard'); // Not an emergency, go back
@@ -39,15 +41,20 @@ export default function EmergencyCallPage() {
                         joinVideoCall(data.id);
                     }
                 } else {
-                    // If 404, the token might have been completed or cancelled
-                    router.push('/patient/dashboard');
+                    // Increment fail count, only redirect after 3 consecutive failures
+                    failCount++;
+                    if (failCount >= 3) {
+                        console.warn('Token not found or session ended, redirecting...');
+                        router.push('/patient/dashboard');
+                    }
                 }
             } catch (err) {
                 console.error('Polling error:', err);
+                failCount++;
             }
         };
 
-        const interval = setInterval(checkStatus, 1000);
+        const interval = setInterval(checkStatus, 1500); // Slightly slower polling to reduce server load
         checkStatus(); // Initial check
 
         return () => clearInterval(interval);

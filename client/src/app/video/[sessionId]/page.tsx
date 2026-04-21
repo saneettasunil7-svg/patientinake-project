@@ -204,7 +204,7 @@ export default function VideoSession() {
             {/* Jitsi SDK Integration */}
             <div className="w-full h-full relative z-10">
                 <JitsiMeeting
-                    domain="meet.jit.si"
+                    domain="meet.ffmuc.net"
                     roomName={`mediconnect-session-${sessionId}`}
                     configOverwrite={{
                         startWithAudioMuted: false,

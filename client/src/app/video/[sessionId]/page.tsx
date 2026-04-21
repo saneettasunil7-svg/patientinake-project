@@ -219,6 +219,7 @@ export default function VideoSession() {
                     }}
                     userInfo={{
                         displayName: displayName || 'Anonymous User',
+                        email: user?.email || 'guest@example.com',
                     }}
                     onApiReady={(externalApi) => {
                         // When user clicks the red hangup button inside Jitsi

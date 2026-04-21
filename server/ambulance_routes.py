@@ -92,6 +92,22 @@ def book_ambulance(booking: schemas.EmergencyBookingCreate, db: Session = Depend
         db_booking.unit_id = unit_id
         db.commit()
         db.refresh(db_booking)
+        
+    # Notify all available doctors about the emergency
+    try:
+        from appointment_models import DoctorAvailability
+        avail_docs = db.query(DoctorAvailability).filter(DoctorAvailability.is_available == True).all()
+        for doc in avail_docs:
+            notif = models.Notification(
+                user_id=doc.doctor_id,
+                title="🚨 EMERGENCY SOS",
+                message=f"Emergency requested. Dispatching nearest unit.",
+                notif_type="emergency"
+            )
+            db.add(notif)
+        db.commit()
+    except Exception as e:
+        print(f"Failed to create emergency notifications: {e}")
     
     # Pack the agency_phone into response dict form to match new schema field
     response_data = schemas.EmergencyBookingResponse.from_orm(db_booking).dict()

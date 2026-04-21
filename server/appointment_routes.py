@@ -134,11 +134,30 @@ async def update_appointment(
         appointment.appointment_date = appointment_update.appointment_date
     if appointment_update.notes:
         appointment.notes = appointment_update.notes
+    old_status = appointment.status
     if appointment_update.status:
         appointment.status = appointment_update.status
 
     db.commit()
     db.refresh(appointment)
+
+    # Notify patient if status changed
+    if appointment_update.status and appointment_update.status != old_status:
+        try:
+            doc_name = current_user.email.split('@')[0] if current_user.role == "doctor" else "Doctor"
+            if hasattr(current_user, "doctor_profile") and current_user.doctor_profile:
+                doc_name = current_user.doctor_profile.full_name
+                
+            notif = models.Notification(
+                user_id=appointment.patient_id,
+                title=f"Appointment {appointment_update.status.title()}",
+                message=f"Your appointment for {appointment.appointment_date.strftime('%Y-%m-%d %H:%M')} has been {appointment_update.status} by {doc_name}.",
+                notif_type="appointment"
+            )
+            db.add(notif)
+            db.commit()
+        except Exception as e:
+            print(f"Failed to create patient notification: {e}")
     
     # Populate extra fields for response model compatibility
     # (Simplified for now, as update response usually doesn't need full doctor details immediately, 

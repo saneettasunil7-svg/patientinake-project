@@ -344,6 +344,18 @@ def public_book_appointment(payload: schemas.PublicBookingRequest, db: Session =
     db.commit()
     db.refresh(new_appt)
 
+    try:
+        notif = models.Notification(
+            user_id=payload.doctor_id,
+            title="New Appointment Request",
+            message=f"{profile.full_name} has requested an appointment for {appt_date_obj.strftime('%Y-%m-%d %H:%M')}.",
+            notif_type="appointment"
+        )
+        db.add(notif)
+        db.commit()
+    except Exception as e:
+        print(f"Failed to create notification: {e}")
+
     return {
         "message": "Appointment booked successfully",
         "user_id": new_user.id,

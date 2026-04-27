@@ -119,11 +119,11 @@ export default function PatientDashboard() {
                 setFetchError(null);
                 
                 // Extract unique specializations for the filter chips
-                const formattedDepts = docs
-                    .map((d: any) => d.specialization)
+                const formattedDepts: string[] = docs
+                    .map((d: any) => d.specialization as string)
                     .filter((s: string) => s && s !== 'General Practice');
                 
-                setDepartments(['All', ...Array.from(new Set(formattedDepts))]);
+                setDepartments(['All', ...Array.from(new Set<string>(formattedDepts))]);
             } else {
                 const errorText = await res.text();
                 console.error(`Failed to fetch doctors: ${res.status}`, errorText);

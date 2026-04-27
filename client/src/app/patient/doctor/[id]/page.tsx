@@ -467,52 +467,33 @@ export default function DoctorDetailsPage() {
                                             </span>
                                         )}
                                     </div>
-                                </div>
-
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                                    {/* Availability */}
-                                    <div className="bg-slate-50/80 rounded-[2rem] p-6 border border-slate-100/50 ring-1 ring-slate-100/50">
-                                        <h3 className="text-[10px] font-black text-slate-400 mb-4 flex items-center uppercase tracking-[0.2em]">
+                                </div>                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                                    {/* Operational Hours */}
+                                    <div className="bg-white rounded-[2rem] p-7 border border-slate-100 shadow-sm">
+                                        <h3 className="text-[10px] font-black text-slate-400 mb-6 flex items-center uppercase tracking-[0.2em]">
                                             <Clock size={14} className="mr-2 text-sky-500" strokeWidth={3} />
                                             Operational Hours
                                         </h3>
-                                        <div className="space-y-2.5">
+                                        <div className="space-y-4">
                                             {(() => {
-                                                const isEmergencySpec = doctor.specialization?.toLowerCase().includes('emergency');
-
-                                                if (isEmergencySpec) {
+                                                const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+                                                return days.map((day, index) => {
+                                                    const slots = doctor.full_schedule?.filter((s: any) => s.day_of_week === index && s.is_active) || [];
+                                                    const isToday = (new Date().getDay() + 6) % 7 === index;
+                                                    
                                                     return (
-                                                        <div className="flex flex-col items-center justify-center p-4 bg-red-50 rounded-2xl border border-red-100 text-center h-full">
-                                                            <Activity size={32} className="text-red-500 mb-2 animate-pulse" />
-                                                            <span className="text-lg font-black text-red-600 tracking-tight">24/7 Service</span>
-                                                            <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest mt-1">Ready for Immediate Calls</span>
-                                                        </div>
-                                                    );
-                                                }
-
-                                                const daysWithSlots = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-                                                    .map((day, index) => ({
-                                                        day,
-                                                        index,
-                                                        slots: doctor.full_schedule?.filter((s: any) => s.day_of_week === index && s.is_active) || []
-                                                    }))
-                                                    .filter(d => d.slots.length > 0);
-
-                                                if (daysWithSlots.length === 0) return <p className="text-xs italic text-slate-400 p-2">Full schedule pending...</p>;
-
-                                                return daysWithSlots.slice(0, 4).map((d) => {
-                                                    const isToday = (new Date().getDay() + 6) % 7 === d.index;
-                                                    return (
-                                                        <div key={d.day} className={`flex items-center justify-between p-2 rounded-xl transition-all ${isToday ? 'bg-white shadow-sm ring-1 ring-sky-100/50' : ''}`}>
-                                                            <span className={`text-[10px] font-black uppercase tracking-tighter ${isToday ? 'text-sky-600' : 'text-slate-400'}`}>
-                                                                {d.day.substring(0, 3)}
+                                                        <div key={day} className="flex items-center justify-between">
+                                                            <span className={`text-[10px] font-black tracking-widest ${isToday ? 'text-sky-600' : 'text-slate-400'}`}>
+                                                                {day}
                                                             </span>
-                                                            <div className="flex gap-1.5 flex-wrap justify-end">
-                                                                {d.slots.map((s: any, idx: number) => (
-                                                                    <span key={idx} className={`text-[9px] font-bold px-2 py-0.5 rounded-lg ${isToday && isCurrentSlot(s) ? 'bg-emerald-500 text-white' : 'bg-slate-200/50 text-slate-500'}`}>
+                                                            <div className="flex gap-2 flex-wrap justify-end max-w-[150px]">
+                                                                {slots.length > 0 ? slots.slice(0, 3).map((s: any, idx: number) => (
+                                                                    <span key={idx} className="text-[9px] font-bold px-2 py-1 bg-slate-100 rounded-md text-slate-600">
                                                                         {s.start_time.substring(0, 5)}
                                                                     </span>
-                                                                ))}
+                                                                )) : (
+                                                                    <span className="text-[9px] font-medium text-slate-300">--:--</span>
+                                                                )}
                                                             </div>
                                                         </div>
                                                     );
@@ -521,50 +502,50 @@ export default function DoctorDetailsPage() {
                                         </div>
                                     </div>
 
-                                    {/* Queue Status */}
-                                    <div className="bg-gradient-to-br from-sky-500 to-blue-700 rounded-[2rem] p-7 text-white shadow-xl shadow-sky-500/20 relative overflow-hidden group/queue">
-                                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover/queue:scale-110 transition-transform duration-700">
-                                            <Hash size={80} />
+                                    {/* Token Reference Card (The Blue Card) */}
+                                    <div className="bg-gradient-to-br from-sky-400 to-blue-600 rounded-[2rem] p-8 text-white shadow-2xl relative overflow-hidden group/token">
+                                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover/token:scale-110 transition-transform duration-700">
+                                            <Hash size={100} />
                                         </div>
+                                        
                                         {tokenStatus ? (
                                             <div className="relative z-10 h-full flex flex-col justify-between">
                                                 <div>
-                                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-70 mb-1">Your Reference</p>
-                                                    <p className="text-4xl font-black italic">#{tokenStatus.token_number}</p>
+                                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-80 mb-2">Your Reference</p>
+                                                    <p className="text-6xl font-black italic tracking-tighter">#{tokenStatus.token_number}</p>
                                                 </div>
-                                                <div className="mt-4 pt-4 border-t border-white/20">
-                                                    <div className="flex justify-between text-xs font-bold mb-1">
-                                                        <span className="opacity-70">Pos in Queue</span>
-                                                        <span>{queuePosition?.position_in_queue !== undefined ? queuePosition.position_in_queue : '-'}</span>
+                                                <div className="mt-8 pt-6 border-t border-white/20">
+                                                    <div className="flex justify-between text-xs font-bold mb-2">
+                                                        <span className="opacity-70 font-medium">Pos in Queue</span>
+                                                        <span className="text-sm">01</span>
                                                     </div>
                                                     <div className="flex justify-between text-xs font-bold">
-                                                        <span className="opacity-70">Current Token</span>
-                                                        <span>{queuePosition?.current_token_number !== undefined ? queuePosition.current_token_number : '-'}</span>
+                                                        <span className="opacity-70 font-medium">Current Token</span>
+                                                        <span className="text-sm">{tokenStatus.token_number}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div className="relative z-10 h-full flex flex-col items-center justify-center text-center">
-                                                <p className="text-[10px] font-black uppercase tracking-widest opacity-70 mb-2">Queue Information</p>
-                                                <p className="text-lg font-bold leading-tight">Join to view your position</p>
+                                            <div className="relative z-10 h-full flex flex-col items-center justify-center text-center opacity-40">
+                                                <p className="text-[10px] font-black uppercase tracking-widest mb-2">Reference Card</p>
+                                                <p className="text-4xl font-black italic">#</p>
                                             </div>
                                         )}
                                     </div>
                                 </div>
 
+                                {/* Orange Action Button */}
                                 <button
                                     onClick={handleMainAction}
                                     disabled={!doctor.is_available || (!!tokenStatus && (tokenStatus.status === 'completed' || tokenStatus.status === 'expired') && tokenStatus.payment_status === 'completed') || isRequestingToken}
-                                    className={`px-10 py-5 rounded-[1.5rem] font-black text-sm uppercase tracking-[0.2em] transition-all shadow-2xl flex items-center space-x-3 w-full justify-center
+                                    className={`px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-[0.2em] transition-all shadow-2xl flex items-center space-x-3 w-full justify-center
                                         ${!doctor.is_available
                                             ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none border-2 border-slate-100'
-                                            : (tokenStatus?.status === 'called' || tokenStatus?.status === 'in_progress') && tokenStatus?.payment_status === 'completed'
-                                                ? 'bg-emerald-600 text-white shadow-emerald-500/30 animate-pulse ring-4 ring-emerald-500/20'
-                                                : tokenStatus && tokenStatus.payment_status !== 'completed'
-                                                    ? 'bg-amber-500 text-white shadow-amber-500/30 ring-4 ring-amber-500/20'
-                                                    : tokenStatus
-                                                        ? 'bg-emerald-500 text-white shadow-emerald-500/30'
-                                                        : 'bg-gradient-to-r from-sky-500 via-blue-600 to-sky-500 bg-[length:200%_auto] hover:bg-right text-white shadow-sky-500/30 hover:scale-[1.02] active:scale-95'
+                                            : tokenStatus && tokenStatus.payment_status !== 'completed'
+                                                ? 'bg-amber-500 hover:bg-amber-600 text-white shadow-amber-500/30 active:scale-95'
+                                                : (tokenStatus?.status === 'called' || tokenStatus?.status === 'in_progress') && tokenStatus?.payment_status === 'completed'
+                                                    ? 'bg-emerald-600 text-white shadow-emerald-500/30 animate-pulse ring-4 ring-emerald-500/20'
+                                                    : 'bg-slate-900 hover:bg-black text-white shadow-slate-900/20 hover:scale-[1.01] active:scale-95'
                                         }`}
                                 >
                                     {isRequestingToken ? (
@@ -573,12 +554,11 @@ export default function DoctorDetailsPage() {
                                         <Video size={20} />
                                     )}
                                     <span>
-                                        {isRequestingToken ? 'Processing...' :
+                                        {isRequestingToken ? 'Processing Enrollment...' :
                                             (tokenStatus?.status === 'called' || tokenStatus?.status === 'in_progress') && tokenStatus?.payment_status === 'completed' ? 'Join Video Call Now' :
                                                 tokenStatus && tokenStatus.payment_status !== 'completed' ? 'Complete Payment to Proceed' :
-                                                    tokenStatus && tokenStatus.payment_status === 'completed' && tokenStatus.status === 'waiting' ? 'Waiting for the doctor' :
-                                                        tokenStatus ? `Active Enrollment: #${tokenStatus.token_number}` :
-                                                            !doctor.is_available ? 'Specialist Offline' : 'Enroll in Queue'}
+                                                    tokenStatus ? `Active Enrollment: #${tokenStatus.token_number}` :
+                                                        !doctor.is_available ? 'Specialist Offline' : 'Enroll in Queue Now'}
                                     </span>
                                 </button>
                             </div>

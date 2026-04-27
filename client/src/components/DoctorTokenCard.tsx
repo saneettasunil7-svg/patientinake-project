@@ -28,8 +28,41 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
     const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
     const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+    const [isTranscribing, setIsTranscribing] = useState(false);
 
     const startRecording = async () => {
+        // Start Web Speech API for transcription
+        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognition.onresult = (event: any) => {
+                const transcript = Array.from(event.results)
+                    .map((result: any) => (result as any)[0])
+                    .map((result: any) => (result as any).transcript)
+                    .join('');
+                setReason(transcript);
+            };
+
+            recognition.onerror = (event: any) => {
+                console.error('Speech recognition error:', event.error);
+                setIsTranscribing(false);
+            };
+
+            recognition.onstart = () => setIsTranscribing(true);
+            recognition.onend = () => setIsTranscribing(false);
+
+            try {
+                recognition.start();
+                (window as any)._recognition = recognition;
+            } catch (e) {
+                console.error("Failed to start recognition", e);
+            }
+        }
+
         try {
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
                 alert('Microphone access is blocked by the browser. This requires a secure connection (HTTPS) or localhost access.');
@@ -56,6 +89,10 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
     };
 
     const stopRecording = () => {
+        if ((window as any)._recognition) {
+            try { (window as any)._recognition.stop(); } catch (e) {}
+        }
+
         if (mediaRecorder) {
             mediaRecorder.stop();
             setIsRecording(false);
@@ -354,12 +391,12 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
                         </div>
                     </div>
 
-                    {isRecording && (
-                        <div className="flex items-center space-x-2 mb-4 text-red-500 animate-pulse">
-                            <div className="w-2 h-2 bg-red-500 rounded-full" />
-                            <span className="text-[10px] font-black uppercase tracking-widest">Recording Audio...</span>
+                        <div className="flex items-center space-x-2 mb-4 text-sky-500 animate-pulse">
+                            <div className="w-2 h-2 bg-sky-500 rounded-full" />
+                            <span className="text-[10px] font-black uppercase tracking-widest">
+                                {isTranscribing ? 'Listening & Transcribing...' : 'Recording Audio...'}
+                            </span>
                         </div>
-                    )}
 
                     {audioUrl && !isRecording && (
                         <div className="w-full flex items-center justify-between p-3 bg-sky-50 rounded-2xl border border-sky-100 mb-4 animate-in slide-in-from-bottom-2 duration-200">

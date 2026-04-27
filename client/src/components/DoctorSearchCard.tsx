@@ -24,8 +24,41 @@ export default function DoctorSearchCard({ doctor, onSelect, isSelected }: Docto
     const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
     const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+    const [isTranscribing, setIsTranscribing] = useState(false);
 
     const startRecording = async () => {
+        // Start Web Speech API for transcription
+        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognition.onresult = (event: any) => {
+                const transcript = Array.from(event.results)
+                    .map((result: any) => (result as any)[0])
+                    .map((result: any) => (result as any).transcript)
+                    .join('');
+                setReason(transcript);
+            };
+
+            recognition.onerror = (event: any) => {
+                console.error('Speech recognition error:', event.error);
+                setIsTranscribing(false);
+            };
+
+            recognition.onstart = () => setIsTranscribing(true);
+            recognition.onend = () => setIsTranscribing(false);
+
+            try {
+                recognition.start();
+                (window as any)._recognition = recognition;
+            } catch (e) {
+                console.error("Failed to start recognition", e);
+            }
+        }
+
         try {
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
                 alert('Microphone access is blocked by the browser.');
@@ -50,6 +83,10 @@ export default function DoctorSearchCard({ doctor, onSelect, isSelected }: Docto
     };
 
     const stopRecording = () => {
+        if ((window as any)._recognition) {
+            try { (window as any)._recognition.stop(); } catch (e) {}
+        }
+
         if (mediaRecorder) {
             mediaRecorder.stop();
             setIsRecording(false);
@@ -263,9 +300,9 @@ export default function DoctorSearchCard({ doctor, onSelect, isSelected }: Docto
                         </div>
 
                         {isRecording && (
-                            <div className="flex items-center justify-center space-x-2 text-red-500 font-black text-[10px] uppercase tracking-widest">
-                                <span className="w-2 h-2 bg-red-500 rounded-full animate-ping" />
-                                <span>Recording Voice Note...</span>
+                            <div className="flex items-center justify-center space-x-2 text-sky-500 font-black text-[10px] uppercase tracking-widest">
+                                <span className="w-2 h-2 bg-sky-500 rounded-full animate-ping" />
+                                <span>{isTranscribing ? 'Listening & Transcribing...' : 'Recording Voice Note...'}</span>
                             </div>
                         )}
 

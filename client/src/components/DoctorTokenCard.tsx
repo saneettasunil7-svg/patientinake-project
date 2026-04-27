@@ -275,7 +275,9 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
                 </div>
             )}
 
-            {error && <div className="text-xs text-red-500 mb-2">{error}</div>}
+            {error && !error.toLowerCase().includes('authenticated') && !error.toLowerCase().includes('credentials') && (
+                <div className="text-xs text-red-500 mb-2">{error}</div>
+            )}
 
             <div className="flex space-x-2">
                 {tokenStatus ? (

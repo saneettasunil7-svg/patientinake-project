@@ -245,7 +245,7 @@ export default function LoginPage() {
                         <div className="pt-6 text-center">
                             <p className="text-slate-500 text-xs font-medium">
                                 Don't have an account?{' '}
-                                <Link href="/auth/register" className="text-sky-600 font-black hover:text-sky-700 transition-colors tracking-wider ml-1">
+                                <Link href="/?register=true" className="text-sky-600 font-black hover:text-sky-700 transition-colors tracking-wider ml-1">
                                     CREATE ONE
                                 </Link>
                             </p>

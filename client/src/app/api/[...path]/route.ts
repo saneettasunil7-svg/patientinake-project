@@ -35,10 +35,10 @@ async function handleRequest(request: NextRequest, pathSegments: string[]) {
     const path = pathSegments.join('/');
     const searchParams = request.nextUrl.searchParams.toString();
 
-    // In Windows, routing a request to the machine's LAN IP (192.168.x.x) from within
-    // the machine itself can cause the firewall to mysteriously drop the connection.
-    // ALWAYS force the proxy target to the local IPv4 loopback.
-    const backendUrl = `http://127.0.0.1:8000/${path}${searchParams ? '?' + searchParams : ''}`;
+    // In production (Vercel), we must proxy to the Render backend URL.
+    // In local dev, we proxy to 127.0.0.1:8000.
+    const targetBase = (process.env.BACKEND_URL || 'http://127.0.0.1:8000').replace(/\/$/, "");
+    const backendUrl = `${targetBase}/${path}${searchParams ? '?' + searchParams : ''}`;
 
     try {
         const method = request.method;

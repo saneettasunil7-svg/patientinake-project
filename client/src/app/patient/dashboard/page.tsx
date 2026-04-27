@@ -121,16 +121,20 @@ export default function PatientDashboard() {
                 // Extract unique specializations for the filter chips
                 const formattedDepts: string[] = docs
                     .map((d: any) => d.specialization as string)
-                    .filter((s: string) => s && s !== 'General Practice');
+                    .filter((s: string | null | undefined) => s && s !== 'General Practice');
                 
-                setDepartments(['All', ...Array.from(new Set<string>(formattedDepts))]);
+                const uniqueDepts = Array.from(new Set(formattedDepts));
+                setDepartments(['All', ...uniqueDepts]);
             } else {
                 const errorText = await res.text();
                 console.error(`Failed to fetch doctors: ${res.status}`, errorText);
                 setFetchError(`Server returned ${res.status}: ${errorText || 'Check if BACKEND_URL is set on Vercel'}`);
             }
-        } catch {
-            // Transient network error (e.g. backend restarting) - silently ignore
+        } catch (e: any) {
+            console.error("Failed to fetch doctors:", e);
+            setFetchError(`Network Error: ${e.message}. Please check your internet or if the Render backend is active.`);
+        } finally {
+            setLoadingDocs(false);
         }
     };
 

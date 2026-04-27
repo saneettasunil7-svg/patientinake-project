@@ -37,7 +37,7 @@ async function handleRequest(request: NextRequest, pathSegments: string[]) {
 
     // In production (Vercel), we must proxy to the Render backend URL.
     // In local dev, we proxy to 127.0.0.1:8000.
-    const targetBase = (process.env.BACKEND_URL || 'http://127.0.0.1:8000').replace(/\/$/, "");
+    const targetBase = (process.env.BACKEND_URL || 'https://patientintake-backend.onrender.com').replace(/\/$/, "");
     const backendUrl = `${targetBase}/${path}${searchParams ? '?' + searchParams : ''}`;
 
     try {

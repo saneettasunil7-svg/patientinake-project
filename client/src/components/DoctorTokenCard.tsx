@@ -92,8 +92,12 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
                 const data = await res.json();
                 setTokenStatus(data);
                 if (isSelected) onSelect(doctor, data);
+            } else if (res.status === 401 || res.status === 403) {
+                // Silently clear status if unauthenticated - don't show red error
+                setTokenStatus(null);
+                if (isSelected) onSelect(doctor, null);
             } else {
-                // 404 means token completed/cancelled - reset so patient can get new token
+                // 404 or other means no token - reset so patient can get new token
                 setTokenStatus(null);
                 if (isSelected) onSelect(doctor, null);
             }

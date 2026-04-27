@@ -138,8 +138,12 @@ function HomeContent() {
                 Book an Appointment <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </span>
             </button>
-            <Link href="/auth/login" className="px-8 py-4 rounded-xl bg-white text-slate-700 font-semibold border border-slate-200 hover:border-sky-200 hover:bg-sky-50 transition-all shadow-sm hover:shadow-md">
-              Existing Patient?
+            <Link 
+              href="/auth/login" 
+              className="px-8 py-4 rounded-xl bg-white text-sky-600 font-bold border-2 border-sky-500 hover:bg-sky-50 transition-all shadow-md hover:shadow-lg active:scale-95 flex items-center gap-2"
+            >
+              <User size={18} />
+              Existing Patient Login
             </Link>
           </motion.div>
         </motion.main>

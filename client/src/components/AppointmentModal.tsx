@@ -206,6 +206,18 @@ export default function AppointmentModal({ open, onClose }: Props) {
                                 </motion.div>
                             ) : step === 1 ? (
                                 <form onSubmit={(e) => { e.preventDefault(); if (step1Valid) setStep(2); }} className="space-y-4">
+                                    {/* Existing Patient Prompt */}
+                                    <div className="p-3 bg-sky-50 rounded-2xl border border-sky-100 flex items-center justify-between">
+                                        <span className="text-[11px] font-bold text-sky-700">Existing Patient?</span>
+                                        <Link 
+                                            href="/auth/login" 
+                                            className="text-[11px] font-black text-white bg-sky-500 px-3 py-1 rounded-full hover:bg-sky-600 transition-all shadow-sm shadow-sky-500/20"
+                                            onClick={handleClose}
+                                        >
+                                            SIGN IN HERE
+                                        </Link>
+                                    </div>
+
                                     <div className="grid grid-cols-2 gap-3">
                                         <div>
                                             <label className="text-xs font-semibold text-slate-500 mb-1 block">First Name *</label>

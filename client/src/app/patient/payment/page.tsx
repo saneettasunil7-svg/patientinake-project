@@ -94,7 +94,7 @@ function PaymentPageContent() {
                 <motion.div 
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mb-6"
+                    className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-6"
                 >
                     <CheckCircle size={48} />
                 </motion.div>
@@ -102,7 +102,7 @@ function PaymentPageContent() {
                 <p className="text-slate-500 mb-8 max-w-xs">Your payment of ₹300 has been processed securely. Your token is now fully activated.</p>
                 <button 
                     onClick={() => router.push(`/patient/doctor/${doctorId}`)}
-                    className="w-full max-w-xs py-4 bg-purple-700 text-white font-bold rounded-xl shadow-lg shadow-purple-500/30 hover:bg-purple-800 transition-all"
+                    className="w-full max-w-xs py-4 bg-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 hover:bg-blue-700 transition-all"
                 >
                     Go to Consultation
                 </button>
@@ -112,8 +112,8 @@ function PaymentPageContent() {
 
     // Helper for Radio Button UI
     const RadioCircle = ({ selected }: { selected: boolean }) => (
-        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${selected ? 'border-purple-600' : 'border-slate-200'}`}>
-            {selected && <div className="w-3.5 h-3.5 bg-purple-600 rounded-full" />}
+        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${selected ? 'border-blue-600' : 'border-slate-200'}`}>
+            {selected && <div className="w-3.5 h-3.5 bg-blue-600 rounded-full" />}
         </div>
     );
 
@@ -138,7 +138,7 @@ function PaymentPageContent() {
                     <div className="px-6 pb-3 text-[11px] font-black text-slate-400 tracking-[0.1em] uppercase">Preferred Payment</div>
                     <div className="bg-white px-6 py-5 cursor-pointer hover:bg-slate-50/50 border-y border-slate-100 transition-all relative overflow-hidden group"
                         onClick={() => setSelectedMethod('card_rupay')}>
-                        {selectedMethod === 'card_rupay' && <div className="absolute left-0 top-0 bottom-0 w-1 bg-purple-600" />}
+                        {selectedMethod === 'card_rupay' && <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600" />}
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-5">
                                 <div className="w-14 h-9 bg-white border border-slate-100 rounded-lg flex items-center justify-center shadow-sm p-1">
@@ -163,7 +163,7 @@ function PaymentPageContent() {
 
                     <div className="bg-white px-6 py-5 cursor-pointer hover:bg-slate-50/50 border-y border-slate-100 transition-all relative overflow-hidden group"
                         onClick={() => setSelectedMethod('gpay')}>
-                        {selectedMethod === 'gpay' && <div className="absolute left-0 top-0 bottom-0 w-1 bg-purple-600" />}
+                        {selectedMethod === 'gpay' && <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600" />}
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-5">
                                 <div className="w-14 h-10 bg-white border border-slate-100 rounded-xl flex items-center justify-center shadow-sm">
@@ -177,7 +177,7 @@ function PaymentPageContent() {
                                 <div>
                                     <p className="text-[15px] font-bold text-slate-900">Google Pay</p>
                                     {doctorDetails?.upi_id && selectedMethod === 'gpay' && (
-                                        <p className="text-purple-600 text-[10px] mt-1.5 font-black bg-purple-50 inline-block px-2.5 py-1 rounded-md border border-purple-100 uppercase tracking-widest">
+                                        <p className="text-blue-600 text-[10px] mt-1.5 font-black bg-blue-50 inline-block px-2.5 py-1 rounded-md border border-blue-100 uppercase tracking-widest">
                                             Pay to: {doctorDetails.upi_id}
                                         </p>
                                     )}
@@ -187,7 +187,7 @@ function PaymentPageContent() {
                         </div>
                     </div>
                     <div className="bg-white px-6 py-4 border-b border-slate-100">
-                        <button className="text-[11px] font-black text-purple-700 uppercase tracking-[0.15em] flex items-center hover:translate-x-1 transition-transform">
+                        <button className="text-[11px] font-black text-blue-700 uppercase tracking-[0.15em] flex items-center hover:translate-x-1 transition-transform">
                             View All UPI Options <ChevronDown size={14} className="ml-1 opacity-50" />
                         </button>
                     </div>
@@ -198,14 +198,14 @@ function PaymentPageContent() {
                     <div className="px-6 pb-3 text-[11px] font-black text-slate-400 tracking-[0.1em] uppercase">Credit & Debit Cards</div>
                     <div className={`bg-white px-6 py-5 cursor-pointer border-y border-slate-100 transition-all relative overflow-hidden ${selectedMethod === 'new_card' ? 'bg-slate-50/30' : 'hover:bg-slate-50/50'}`}
                         onClick={() => setSelectedMethod('new_card')}>
-                        {selectedMethod === 'new_card' && <div className="absolute left-0 top-0 bottom-0 w-1 bg-purple-600" />}
+                        {selectedMethod === 'new_card' && <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600" />}
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-5">
-                                <div className="w-14 h-10 border-2 border-dashed border-purple-200 rounded-xl flex items-center justify-center text-purple-400 bg-purple-50/30">
+                                <div className="w-14 h-10 border-2 border-dashed border-blue-200 rounded-xl flex items-center justify-center text-blue-400 bg-blue-50/30">
                                     <Plus size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-[14px] font-black text-purple-700 uppercase tracking-[0.05em]">Add New Card</p>
+                                    <p className="text-[14px] font-black text-blue-700 uppercase tracking-[0.05em]">Add New Card</p>
                                     <p className="text-slate-400 text-xs mt-0.5 font-medium">Save and Pay via Cards</p>
 
                                     <div className="flex space-x-2.5 mt-2.5">
@@ -226,16 +226,16 @@ function PaymentPageContent() {
                                 <div className="space-y-5">
                                     <div>
                                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Card Number</label>
-                                        <input type="text" placeholder="0000 0000 0000 0000" className="w-full px-5 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/10 focus:border-purple-600 transition-all" />
+                                        <input type="text" placeholder="0000 0000 0000 0000" className="w-full px-5 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600/10 focus:border-blue-600 transition-all" />
                                     </div>
                                     <div className="flex gap-5">
                                         <div className="flex-1">
                                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Valid Thru</label>
-                                            <input type="text" placeholder="MM/YY" className="w-full px-5 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/10 focus:border-purple-600 transition-all text-center" />
+                                            <input type="text" placeholder="MM/YY" className="w-full px-5 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600/10 focus:border-blue-600 transition-all text-center" />
                                         </div>
                                         <div className="flex-1">
                                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">CVV</label>
-                                            <input type="password" placeholder="***" className="w-full px-5 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/10 focus:border-purple-600 transition-all text-center" />
+                                            <input type="password" placeholder="***" className="w-full px-5 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600/10 focus:border-blue-600 transition-all text-center" />
                                         </div>
                                     </div>
                                     <div>
@@ -243,7 +243,7 @@ function PaymentPageContent() {
                                         <input type="text" placeholder="Full Name" className="w-full px-5 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-600/10 focus:border-purple-600 transition-all uppercase tracking-wide" />
                                     </div>
                                     <div className="flex items-center gap-3 pt-2">
-                                        <input type="checkbox" id="save_card" className="w-5 h-5 accent-purple-600 rounded-lg border-slate-200" />
+                                        <input type="checkbox" id="save_card" className="w-5 h-5 accent-blue-600 rounded-lg border-slate-200" />
                                         <label htmlFor="save_card" className="text-xs text-slate-500 font-bold cursor-pointer">Save this card for future payments</label>
                                     </div>
                                 </div>
@@ -259,7 +259,7 @@ function PaymentPageContent() {
                     {/* Netbanking / Direct Transfer Option */}
                     <div className={`bg-white px-6 py-5 cursor-pointer border-y border-slate-100 transition-all relative overflow-hidden ${selectedMethod === 'netbanking' ? 'bg-slate-50/30' : 'hover:bg-slate-50/50'}`}
                         onClick={() => setSelectedMethod('netbanking')}>
-                        {selectedMethod === 'netbanking' && <div className="absolute left-0 top-0 bottom-0 w-1 bg-purple-600" />}
+                        {selectedMethod === 'netbanking' && <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600" />}
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-5">
                                 <div className="w-14 h-10 border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 bg-white shadow-sm">
@@ -277,7 +277,7 @@ function PaymentPageContent() {
                         {selectedMethod === 'netbanking' && doctorDetails?.account_number && (
                             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="mt-8 pl-14 pr-2">
                                 <div className="bg-slate-900 rounded-[1.5rem] p-6 text-white shadow-2xl space-y-4 relative overflow-hidden group">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-transparent opacity-50" />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-transparent opacity-50" />
                                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest relative z-10">Direct Bank Transfer</p>
                                     <div className="space-y-3 relative z-10">
                                         <div className="flex justify-between items-center text-xs">
@@ -324,7 +324,7 @@ function PaymentPageContent() {
                     <button
                         onClick={handlePayment}
                         disabled={isProcessing || (selectedMethod === 'netbanking' && !doctorDetails?.account_number)}
-                        className="w-full py-4.5 rounded-[1.25rem] bg-purple-700 hover:bg-purple-800 text-white font-black text-lg shadow-xl shadow-purple-500/30 transition-all flex items-center justify-center space-x-3 disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none active:scale-[0.98]"
+                        className="w-full py-4.5 rounded-[1.25rem] bg-blue-600 hover:bg-blue-700 text-white font-black text-lg shadow-xl shadow-blue-500/30 transition-all flex items-center justify-center space-x-3 disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none active:scale-[0.98]"
                     >
                         {isProcessing ? (
                             <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin" />

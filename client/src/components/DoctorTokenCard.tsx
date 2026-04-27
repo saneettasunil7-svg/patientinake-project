@@ -149,6 +149,8 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
                 }
 
                 await fetchMyTokenForDoctor();
+                // Redirect to payment page
+                router.push(`/patient/payment?tokenId=${tokenData.id}&doctorId=${doctor.id}`);
                 // Bug fix: don't call onSelect(doctor, null) here as it clears the status 
                 // that fetchMyTokenForDoctor just successfully set/updated.
             } else {
@@ -231,32 +233,35 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
             `}
         >
             <div className="absolute top-4 right-4">
-                <div className={`flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${doctor.is_available ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-500'}`}>
-                    <div className={`w-2 h-2 rounded-full ${doctor.is_available ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
+                <div className={`flex items-center space-x-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.1em] ${doctor.is_available ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-500'}`}>
+                    <div className={`w-1.5 h-1.5 rounded-full ${doctor.is_available ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
                     <span>{doctor.is_available ? 'Online' : 'Offline'}</span>
                 </div>
             </div>
 
-            <div className="flex items-start justify-between mb-4 mt-2">
-                {doctor.profile_photo ? (
-                    <img
-                        src={`${getApiBaseUrl()}${doctor.profile_photo}`}
-                        alt={doctor.full_name}
-                        className="w-14 h-14 rounded-2xl object-cover border border-slate-100 shadow-sm"
-                        onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
-                            const nextEl = (e.target as HTMLImageElement).nextElementSibling;
-                            if (nextEl) nextEl.classList.remove('hidden');
-                        }}
-                    />
-                ) : null}
-                <div className={`w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-sky-600 font-bold text-xl border border-slate-100 ${doctor.profile_photo ? 'hidden' : ''}`}>
-                    {doctor.full_name?.charAt(0) || 'D'}
+            <div className="flex items-center space-x-5 mb-6">
+                <div className="relative">
+                    {doctor.profile_photo ? (
+                        <img
+                            src={`${getApiBaseUrl()}${doctor.profile_photo}`}
+                            alt={doctor.full_name}
+                            className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md"
+                            onError={(e) => {
+                                (e.target as HTMLImageElement).style.display = 'none';
+                                const nextEl = (e.target as HTMLImageElement).nextElementSibling;
+                                if (nextEl) nextEl.classList.remove('hidden');
+                            }}
+                        />
+                    ) : null}
+                    <div className={`w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-xl border-2 border-white shadow-md ${doctor.profile_photo ? 'hidden' : ''}`}>
+                        {doctor.full_name?.charAt(0) || 'D'}
+                    </div>
+                </div>
+                <div>
+                    <h3 className="text-lg font-bold text-slate-900 leading-tight">{doctor.full_name}</h3>
+                    <p className="text-xs text-blue-600 font-black uppercase tracking-widest mt-1">{doctor.specialization}</p>
                 </div>
             </div>
-
-            <h3 className="text-lg font-bold text-slate-800 mb-1">{doctor.full_name}</h3>
-            <p className="text-sm text-sky-600 font-medium mb-4 uppercase tracking-wide">{doctor.specialization}</p>
 
             {/* Token Status Badge inside Card */}
             {tokenStatus && (
@@ -295,17 +300,17 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
                     <button
                         onClick={handleGetTokenClick}
                         disabled={!doctor.is_available || loading}
-                        className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all shadow-sm flex items-center justify-center space-x-1
+                        className={`flex-1 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center justify-center space-x-2
                             ${!doctor.is_available
-                                ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-                                : 'bg-gradient-to-r from-sky-500 to-blue-600 text-white hover:shadow-md hover:scale-[1.02]'
+                                ? 'bg-slate-100 text-slate-400 cursor-not-allowed shadow-none'
+                                : 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-500/20 hover:scale-[1.02]'
                             }`}
                     >
                         {loading ? (
-                            <span className="animate-spin mr-1">↻</span>
+                            <span className="animate-spin">↻</span>
                         ) : (
                             <>
-                                <HashIcon />
+                                <HashIcon size={18} />
                                 <span>Get Token</span>
                             </>
                         )}
@@ -402,7 +407,7 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
                             router.push(`/patient/doctor/${doctor.id}`);
                         }
                     }}
-                    className="w-full px-4 py-3 rounded-xl font-bold text-sm transition-all shadow-sm bg-sky-50 text-sky-700 hover:bg-sky-100 hover:text-sky-800 border border-sky-200"
+                    className="w-full px-4 py-3.5 rounded-xl font-bold text-sm transition-all bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50 active:scale-95"
                 >
                     View Profile
                 </button>

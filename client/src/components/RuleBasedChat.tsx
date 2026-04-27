@@ -132,20 +132,20 @@ export default function RuleBasedChat({ onBookAppointment, onEmergency }: RuleBa
     return (
         <div className="flex flex-col h-[400px] bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
             {/* Header */}
-            <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-4 flex items-center justify-between">
+            <div className="bg-[#1a1f2e] p-5 flex items-center justify-between border-b border-white/5">
                 <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-full bg-sky-500/20 flex items-center justify-center border border-sky-500/50">
-                        <Bot className="text-sky-400" size={20} />
+                    <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
+                        <Bot className="text-blue-400" size={20} />
                     </div>
                     <div>
-                        <h3 className="text-white font-bold text-sm">Health Assistant</h3>
-                        <div className="flex items-center space-x-1">
-                            <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                            <span className="text-xs text-slate-400">Online</span>
+                        <h3 className="text-white font-bold text-sm tracking-tight">Mediconnect Agent</h3>
+                        <div className="flex items-center space-x-1.5">
+                            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500/80">Online</span>
                         </div>
                     </div>
                 </div>
-                <button onClick={handleReset} className="p-2 text-slate-400 hover:text-white transition-colors" title="Reset Chat">
+                <button onClick={handleReset} className="p-2 text-slate-500 hover:text-white transition-colors" title="Reset Chat">
                     <RefreshCw size={16} />
                 </button>
             </div>

@@ -109,8 +109,10 @@ export default function PatientDashboard() {
 
     const refreshDoctors = async () => {
         const token = localStorage.getItem('token');
+        const apiUrl = `${getApiBaseUrl()}/doctors/`;
+        console.log(`DEBUG: Fetching doctors from: ${apiUrl}`);
         try {
-            const res = await fetch(`${getApiBaseUrl()}/doctors/`, {
+            const res = await fetch(apiUrl, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (res.ok) {
@@ -128,7 +130,7 @@ export default function PatientDashboard() {
             } else {
                 const errorText = await res.text();
                 console.error(`Failed to fetch doctors: ${res.status}`, errorText);
-                setFetchError(`Server returned ${res.status}: ${errorText || 'Check if BACKEND_URL is set on Vercel'}`);
+                setFetchError(`Server returned ${res.status}: ${errorText || 'Check if BACKEND_URL environment variable is set on Vercel Dashboard.'}`);
             }
         } catch (e: any) {
             console.error("Failed to fetch doctors:", e);

@@ -31,12 +31,18 @@ _allowed_origins = [o.strip() for o in _raw_origins.split(",") if o.strip()]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=_allowed_origins if _allowed_origins else ["*"],
-    allow_origin_regex=None if _allowed_origins else r"https?://.*",
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+from fastapi import Request
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    print(f"DEBUG: Incoming request {request.method} {request.url}")
+    return await call_next(request)
 
 # ── Keep-Alive Self-Ping (prevents Render free tier cold starts) ──────────────
 

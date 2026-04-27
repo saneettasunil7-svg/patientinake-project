@@ -9,8 +9,7 @@ router = APIRouter(prefix="/doctors", tags=["doctors"])
 
 @router.get("/", response_model=List[doctor_schemas.DoctorListResponse])
 async def list_doctors(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(auth.get_current_active_user)
+    db: Session = Depends(get_db)
 ):
     doctors = db.query(models.User).filter(models.User.role == "doctor").all()
     print(f"DEBUG: Found {len(doctors)} doctors.")

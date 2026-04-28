@@ -119,6 +119,9 @@ export default function DoctorSearchCard({ doctor, onSelect, isSelected }: Docto
             } else {
                 setTokenStatus(null);
                 if (isSelected) onSelect(doctor, null);
+                if (res.status === 401 && typeof window !== 'undefined') {
+                    window.location.href = '/auth/login?session_expired=true';
+                }
             }
         } catch { /* Silent */ }
     };
@@ -170,6 +173,11 @@ export default function DoctorSearchCard({ doctor, onSelect, isSelected }: Docto
                 setReason('');
                 clearRecording();
             } else {
+                if (response.status === 401) {
+                    alert('Session expired or not authenticated. Please log in again.');
+                    if (typeof window !== 'undefined') window.location.href = '/auth/login?session_expired=true';
+                    return;
+                }
                 const errData = await response.json().catch(() => ({}));
                 setError(errData.detail || 'Failed to request token');
             }
@@ -213,8 +221,8 @@ export default function DoctorSearchCard({ doctor, onSelect, isSelected }: Docto
             {/* Content Section */}
             <div className="flex-1 p-6 md:p-8 flex flex-col justify-between">
                 <div>
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
-                        <h3 className="text-2xl font-black text-slate-900 border-b-2 border-sky-500 w-fit pb-1 transition-colors">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2 pr-24">
+                        <h3 className="text-2xl font-black text-slate-900 border-b-2 border-sky-500 w-fit pb-1 transition-colors line-clamp-2 break-words" title={doctor.full_name}>
                             {doctor.full_name?.startsWith('Dr.') ? doctor.full_name : `Dr. ${doctor.full_name}`}
                         </h3>
                     </div>

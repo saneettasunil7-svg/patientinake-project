@@ -133,6 +133,9 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
                 // Silently clear status if unauthenticated - don't show red error
                 setTokenStatus(null);
                 if (isSelected) onSelect(doctor, null);
+                if (res.status === 401 && typeof window !== 'undefined') {
+                    window.location.href = '/auth/login?session_expired=true';
+                }
             } else {
                 // 404 or other means no token - reset so patient can get new token
                 setTokenStatus(null);
@@ -206,6 +209,12 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
                 console.error('Token request failed with status:', response.status, errObj, errStr);
                 const errorDetail = errObj.detail || (response.status === 403 ? 'Access Denied: You may be logged in with a Doctor account instead of a Patient.' : 'Failed to request token');
 
+                if (response.status === 401) {
+                    alert('Session expired or not authenticated. Please log in again.');
+                    if (typeof window !== 'undefined') window.location.href = '/auth/login?session_expired=true';
+                    return;
+                }
+
                 setError(errorDetail);
                 if (response.status === 403) alert(`Error 403: ${errorDetail}`);
 
@@ -244,6 +253,11 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
                 onSelect(doctor, null);
                 // Optionally visually alert success, but state update might be enough
             } else {
+                if (res.status === 401) {
+                    alert('Session expired or not authenticated. Please log in again.');
+                    if (typeof window !== 'undefined') window.location.href = '/auth/login?session_expired=true';
+                    return;
+                }
                 const errData = await res.json();
                 setError(errData.detail || "Failed to cancel token");
             }
@@ -298,8 +312,8 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
                         {doctor.full_name?.charAt(0) || 'D'}
                     </div>
                 </div>
-                <div className="pr-16">
-                    <h3 className="text-xl font-bold text-slate-900 leading-tight tracking-tight">{doctor.full_name}</h3>
+                <div className="pr-24">
+                    <h3 className="text-xl font-bold text-slate-900 leading-tight tracking-tight line-clamp-2 break-words" title={doctor.full_name}>{doctor.full_name}</h3>
                     <p className="text-[10px] text-blue-600 font-black uppercase tracking-[0.2em] mt-1.5">{doctor.specialization}</p>
                 </div>
             </div>

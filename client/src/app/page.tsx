@@ -143,7 +143,7 @@ function HomeContent() {
               className="px-8 py-4 rounded-xl bg-white text-sky-600 font-bold border-2 border-sky-500 hover:bg-sky-50 transition-all shadow-md hover:shadow-lg active:scale-95 flex items-center gap-2"
             >
               <User size={18} />
-              Existing Patient Login
+              Login
             </Link>
           </motion.div>
         </motion.main>

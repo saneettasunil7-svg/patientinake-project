@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import {
   Activity, Shield, ArrowRight, Stethoscope, Phone, Mail, MapPin,
   Heart, Brain, Baby, Microscope, Bone, Zap, Eye, Wind,
-  Star, Users, Clock, Award, ChevronRight
+  Star, Users, User, Clock, Award, ChevronRight
 } from "lucide-react";
 import PublicChatWidget from "@/components/PublicChatWidget";
 import AppointmentModal from "@/components/AppointmentModal";

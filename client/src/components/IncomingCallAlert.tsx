@@ -12,8 +12,8 @@ export default function IncomingCallAlert() {
     const router = useRouter();
 
     useEffect(() => {
-        // Poll for incoming calls every 2 seconds
-        const interval = setInterval(checkIncomingCall, 2000);
+        // Poll for incoming calls every 10 seconds
+        const interval = setInterval(checkIncomingCall, 10000);
         return () => clearInterval(interval);
     }, []);
 

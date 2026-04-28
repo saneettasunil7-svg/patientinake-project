@@ -31,14 +31,26 @@ print(f"DEBUG: Using database: {'PostgreSQL (Supabase)' if is_postgres else 'SQL
 # SQLite needs check_same_thread=False; PostgreSQL does not
 connect_args = {"check_same_thread": False} if not is_postgres else {}
 
-# pool_pre_ping=True verifies connections before use — critical for Render/Supabase
-# which may drop idle connections on free tier
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
-    connect_args=connect_args,
-    pool_pre_ping=True,
-    pool_recycle=300,  # Recycle connections every 5 minutes
-)
+# pool_pre_ping=True verifies connections before use
+# Explicit pool_size and max_overflow are necessary for Supabase to avoid Max Client Connections FATAL error
+if is_postgres:
+    engine = create_engine(
+        SQLALCHEMY_DATABASE_URL,
+        connect_args=connect_args,
+        pool_size=10,
+        max_overflow=5,
+        pool_timeout=30,
+        pool_pre_ping=True,
+        pool_recycle=300,
+    )
+else:
+    engine = create_engine(
+        SQLALCHEMY_DATABASE_URL,
+        connect_args=connect_args,
+        pool_pre_ping=True,
+        pool_recycle=300,
+    )
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()

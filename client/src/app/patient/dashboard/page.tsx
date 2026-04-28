@@ -73,13 +73,13 @@ export default function PatientDashboard() {
     }, [user, isLoading, router]);
 
 
-    // Poll for Doctor Availability (every 10s)
+    // Poll for Doctor Availability (every 30s)
     useEffect(() => {
         if (!user) return;
 
         const interval = setInterval(() => {
             refreshDoctors();
-        }, 10000);
+        }, 30000);
         return () => clearInterval(interval);
     }, [user]);
 

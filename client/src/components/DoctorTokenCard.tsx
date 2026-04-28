@@ -105,10 +105,10 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
         setAudioUrl(null);
     };
 
-    // Fetch token specific to THIS doctor on mount and auto-poll every 5s
+    // Fetch token specific to THIS doctor on mount and auto-poll every 20s
     useEffect(() => {
         fetchMyTokenForDoctor();
-        const interval = setInterval(fetchMyTokenForDoctor, 5000);
+        const interval = setInterval(fetchMyTokenForDoctor, 20000);
         return () => clearInterval(interval);
     }, [doctor.id]);
 

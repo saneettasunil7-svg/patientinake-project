@@ -287,13 +287,6 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
                 ${doctor.is_available ? 'hover:border-emerald-200' : 'opacity-75'}
             `}
         >
-            <div className="absolute top-3 right-3 z-10">
-                <div className={`flex items-center space-x-2 px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.1em] ${doctor.is_available ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}>
-                    <div className={`w-1.5 h-1.5 rounded-full ${doctor.is_available ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'}`} />
-                    <span>{doctor.is_available ? 'Online' : 'Offline'}</span>
-                </div>
-            </div>
-
             <div className="flex items-start space-x-5 mb-6">
                 <div className="relative flex-shrink-0">
                     {doctor.profile_photo ? (
@@ -312,9 +305,13 @@ export default function DoctorTokenCard({ doctor, onSelect, isSelected }: Doctor
                         {doctor.full_name?.charAt(0) || 'D'}
                     </div>
                 </div>
-                <div className="pr-24">
-                    <h3 className="text-xl font-bold text-slate-900 leading-tight tracking-tight line-clamp-2 break-words" title={doctor.full_name}>{doctor.full_name}</h3>
-                    <p className="text-[10px] text-blue-600 font-black uppercase tracking-[0.2em] mt-1.5">{doctor.specialization}</p>
+                <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-bold text-slate-900 leading-tight tracking-tight truncate" title={doctor.full_name}>{doctor.full_name}</h3>
+                    <p className="text-[10px] text-blue-600 font-black uppercase tracking-[0.2em] mt-1 mb-2 truncate">{doctor.specialization}</p>
+                    <div className={`inline-flex items-center space-x-2 px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.1em] ${doctor.is_available ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}>
+                        <div className={`w-1.5 h-1.5 rounded-full ${doctor.is_available ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'}`} />
+                        <span>{doctor.is_available ? 'Online' : 'Offline'}</span>
+                    </div>
                 </div>
             </div>
 

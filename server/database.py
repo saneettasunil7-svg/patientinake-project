@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 import os
+import re
 
 # Load .env file for local development
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
@@ -19,6 +20,9 @@ SQLALCHEMY_DATABASE_URL = os.environ.get(
 # Supabase/Heroku provide "postgres://" but SQLAlchemy needs "postgresql://"
 if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
     SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+# Fix for Supabase pooler: newer pooler requires just 'postgres' as username, not 'postgres.[project-ref]'
+SQLALCHEMY_DATABASE_URL = re.sub(r'(postgresql://)postgres\.[^:]+:', r'\1postgres:', SQLALCHEMY_DATABASE_URL)
 
 # Supabase requires SSL — append sslmode=require if not already present
 if "postgresql" in SQLALCHEMY_DATABASE_URL and "sslmode" not in SQLALCHEMY_DATABASE_URL:
